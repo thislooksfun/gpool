@@ -7,14 +7,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:thislooksfun/gpool.git"
+    "url": "git@github.com:vidr-group/gpool.git"
   },
-  "author": "thislooksfun",
+  "author": "vidr-group (http://vidr.me)",
+  "contributors": [
+    "thislooksfun",
+    "fmressel"
+  ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/thislooksfun/gpool/issues"
+    "url": "https://github.com/vidr-group/gpool/issues"
   },
-  "homepage": "https://github.com/thislooksfun/gpool",
+  "homepage": "https://github.com/vidr-group/gpool",
   "dependencies": {
     "coffee-script": "^1.10.0",
     "path": "^0.12.7"
