@@ -1,6 +1,6 @@
 {
   "name": "gpool",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A management tool for multiple git repositories",
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register"
