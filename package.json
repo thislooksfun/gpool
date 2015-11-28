@@ -1,0 +1,27 @@
+{
+  "name": "gpool",
+  "version": "0.0.1",
+  "description": "A management tool for multiple git repositories",
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thislooksfun/gpool.git"
+  },
+  "author": "thislooksfun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thislooksfun/gpool/issues"
+  },
+  "homepage": "https://github.com/thislooksfun/gpool",
+  "dependencies": {
+    "coffee-script": "^1.10.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "simple-mock": "^0.5.0"
+  }
+}

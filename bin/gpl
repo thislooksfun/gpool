@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+var cs = require("coffee-script/register")
+process.exit(1) if require("../src/gpool").go() == 1
