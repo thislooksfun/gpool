@@ -85,14 +85,13 @@ describe "The command", ->
         done()
     
     it "should print usage and exit when no options given specified", ->
+      printAllUsageSpy = simple.mock gpl.usage, "printAll"
+      
       title = process.title
       expect(gpl.run([])).to.eql 1
       process.title = title
       
-      expect(logSpy.called).to.be.true
-      expect(logSpy.calls.length).to.eql 2
-      expect(logSpy.calls[0].args).to.eql ["usage: gpl -r [repo] [commands]"]
-      expect(logSpy.calls[1].args).to.eql ["       gpl -a [commands]"]
+      expect(printAllUsageSpy.called).to.be.true
     
     
     

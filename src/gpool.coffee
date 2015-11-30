@@ -1,6 +1,13 @@
 fs = require "fs"
 pathMod = require "path"
 
+# Add shelljs functions
+require "shelljs/global"
+
+
+printHelp = ->
+  Main.print "Help messages!"
+
 hasDotGpl = (path) ->
   try
     stat = fs.statSync pathMod.join(path, ".gpl")
@@ -27,18 +34,14 @@ printDirNotValid = ->
   Main.print "Error: not a valid gpool directory -
     '.gpl/gpl_manifest.json' not found in this or any parent directory"
 
-printUsage =
-  all: ->
-    Main.print "usage: gpl -r [repo] [commands]"
-    Main.print "       gpl -a [commands]"
-  
-  forRepo: -> Main.print "usage: gpl -r [repo] [commands]"
-  forAll: -> Main.print "usage: gpl -a [commands]"
 
+doClone = (args, manifest) ->
+  unless args.length > 1
+    Main.usage.clone.print()
 
 forAll = (args) ->
   unless args.length > 3
-    printUsage.forAll()
+    Main.usage.forAll.print()
     return false
   
   argList = (arg for arg, i in args when i > 2)
@@ -51,7 +54,7 @@ forAll = (args) ->
 
 forRepo = (args) ->
   unless args.length > 4
-    printUsage.forRepo()
+    Main.usage.forRepo.print()
     return false
   
   argList = (arg for arg, i in args when i > 3)
@@ -61,6 +64,16 @@ forRepo = (args) ->
   
   return true
 
+
+runCommand = (args, manifest) ->
+  switch args[2]
+    when "help" then return printHelp args
+    when "clone" then return doClone args, manifest
+    when "-a" then return forAll args, manifest
+    when "-r" then return forRepo args, manifest
+    else
+      Main.usage.printAll()
+      return false
 
 module.exports = Main =
   write: process.stdout.write
@@ -78,14 +91,27 @@ module.exports = Main =
       return 1
     
     unless args.length > 2
-      printUsage.all()
+      @usage.printAll()
       return 1
     
-    switch args[2]
-      when "-a" then return 1 unless forAll args, manifest
-      when "-r" then return 1 unless forRepo args, manifest
-      else
-        printUsage.all()
-        return -1
+    return (if runCommand(args, manifest) then 0 else 1)
+  
+  
+  usage:
+    printAll: ->
+      first = true
+      for k,v of @ when k isnt "printAll"
+        Main.print "#{(if first then "usage: " else "       ")} #{v.get()}"
+        first = false
     
-    return 0
+    clone:
+      get: -> return "gpl clone [remote]"
+      print: -> Main.print "usage: #{@get()}"
+    
+    forRepo:
+      get: -> return "gpl -r [repo] [commands]"
+      print: -> Main.print "usage: #{@get()}"
+      
+    forAll:
+      get: -> return "gpl -a [commands]"
+      print: -> Main.print "usage: #{@get()}"
