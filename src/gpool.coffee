@@ -24,7 +24,8 @@ parseManifest = ->
     return null
 
 printDirNotValid = ->
-  Main.print "Error: not a valid gpool directory - '.gpl/gpl_manifest.json' not found in this or any parent directory"
+  Main.print "Error: not a valid gpool directory -
+    '.gpl/gpl_manifest.json' not found in this or any parent directory"
 
 printUsage =
   all: ->
@@ -32,7 +33,7 @@ printUsage =
     Main.print "       gpl -a [commands]"
   
   forRepo: -> Main.print "usage: gpl -r [repo] [commands]"
-  forAll:  -> Main.print "usage: gpl -a [commands]"
+  forAll: -> Main.print "usage: gpl -a [commands]"
 
 
 forAll = (args) ->
@@ -68,7 +69,7 @@ module.exports = Main =
   go: (args) ->
     process.title = "gpool"
     
-    throw new Error "'args' variable improperly set to: #{args}" unless Array.isArray args
+    throw new Error("'args' variable improperly set to: #{args}") unless Array.isArray args
     
     manifest = parseManifest()
     

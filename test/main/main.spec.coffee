@@ -12,7 +12,8 @@ describe "The command", ->
     gpl = require "../../src/gpool"
   
   beforeEach ->
-    logSpy = simple.mock gpl, "print", ->  # Replace with empty function to keep from printing to the console
+    # Replace with empty function to keep from printing to the console
+    logSpy = simple.mock gpl, "print", ->
     
     simple.mock process, "cwd", -> return tmpDir
   
@@ -29,7 +30,8 @@ describe "The command", ->
       
       expect(logSpy.called).to.be.true
       expect(logSpy.calls.length).to.eql 1
-      expect(logSpy.calls[0].args).to.eql ["Error: not a valid gpool directory - '.gpl/gpl_manifest.json' not found in this or any parent directory"]
+      expect(logSpy.calls[0].args).to.eql ["Error: not a valid gpool directory -
+        '.gpl/gpl_manifest.json' not found in this or any parent directory"]
     
     
     it "with a .gpl folder, but no gpl_manifest.json", (done) ->
@@ -42,8 +44,10 @@ describe "The command", ->
         
         expect(logSpy.called).to.be.true
         expect(logSpy.calls.length).to.eql 2
-        expect(logSpy.calls[0].args).to.match /ENOENT: no such file or directory, open '.+\.gpl\/gpl_manifest\.json'/
-        expect(logSpy.calls[1].args).to.eql ["Error: not a valid gpool directory - '.gpl/gpl_manifest.json' not found in this or any parent directory"]
+        manifestMatch = /ENOENT: no such file or directory, open '.+\.gpl\/gpl_manifest\.json'/
+        expect(logSpy.calls[0].args).to.match manifestMatch
+        expect(logSpy.calls[1].args).to.eql ["Error: not a valid gpool directory -
+          '.gpl/gpl_manifest.json' not found in this or any parent directory"]
         done()
   
   
@@ -67,7 +71,9 @@ describe "The command", ->
       mkdirp path.join(tmpDir, ".gpl/"), (err) ->
         throw err if err
         
-        fs.writeFile path.join(tmpDir, ".gpl/gpl_manifest.json"), JSON.stringify(testData, null, 2), (err) ->
+        mnfstPath = path.join(tmpDir, ".gpl/gpl_manifest.json")
+        json = JSON.stringify(testData, null, 2)
+        fs.writeFile mnfstPath, json, (err) ->
           throw err if err
           done()
     

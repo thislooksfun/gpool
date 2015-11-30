@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "A management tool for multiple git repositories",
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register"
+    "test": "mocha --compilers coffee:coffee-script/register; coffeelint -f ./coffeelint.json src test"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "coffeelint": "^1.14.1",
     "mkdirp": "^0.5.1",
     "mocha": "^2.3.4",
     "rmdir": "^1.1.0",
