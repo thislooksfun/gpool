@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "A management tool for multiple git repositories",
   "scripts": {
+    "install": "chmod +x ./scripts/setup.sh && ./scripts/setup.sh || echo \"Setup script couldn't be made executable!\"",
     "test": "mocha --compilers coffee:coffee-script/register; coffeelint -f ./coffeelint.json src test"
   },
   "repository": {
