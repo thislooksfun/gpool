@@ -25,7 +25,7 @@ describe "The command", ->
   describe "should print an error message and exit when given an invalid directory", ->
     it "with no .gpl folder", ->
       title = process.title
-      expect(gpl.go([])).to.eql 1
+      expect(gpl.run([])).to.eql 1
       process.title = title
       
       expect(logSpy.called).to.be.true
@@ -39,7 +39,7 @@ describe "The command", ->
         throw err if err
         
         title = process.title
-        expect(gpl.go([])).to.eql 1
+        expect(gpl.run([])).to.eql 1
         process.title = title
         
         expect(logSpy.called).to.be.true
@@ -86,7 +86,7 @@ describe "The command", ->
     
     it "should print usage and exit when no options given specified", ->
       title = process.title
-      expect(gpl.go([])).to.eql 1
+      expect(gpl.run([])).to.eql 1
       process.title = title
       
       expect(logSpy.called).to.be.true
@@ -99,7 +99,7 @@ describe "The command", ->
     describe "with a specific repository", ->
       it "should print usage and exit when given invalid arguments", ->
         title = process.title
-        expect(gpl.go(["", "", "-r", "repo"])).to.eql 1
+        expect(gpl.run(["", "", "-r", "repo"])).to.eql 1
         process.title = title
         
         expect(logSpy.called).to.be.true
@@ -108,7 +108,7 @@ describe "The command", ->
       
       it "should succeed when given valid arguments", ->
         title = process.title
-        expect(gpl.go(["", "", "-r", "repo", "command"])).to.eql 0
+        expect(gpl.run(["", "", "-r", "repo", "command"])).to.eql 0
         process.title = title
     
     
@@ -116,7 +116,7 @@ describe "The command", ->
     describe "for all repositories", ->
       it "should print usage and exit when given invalid arguments", ->
         title = process.title
-        expect(gpl.go(["", "", "-a"])).to.eql 1
+        expect(gpl.run(["", "", "-a"])).to.eql 1
         process.title = title
         
         expect(logSpy.called).to.be.true
@@ -126,7 +126,7 @@ describe "The command", ->
       
       it "should succeed when given valid arguments", ->
         title = process.title
-        expect(gpl.go(["", "", "-a", "command"])).to.eql 0
+        expect(gpl.run(["", "", "-a", "command"])).to.eql 0
         process.title = title
     
     
@@ -148,5 +148,5 @@ describe "The command", ->
       
       it "should find the .gpl folder in a parent directory", ->
         title = process.title
-        expect(gpl.go(["", "", "-a", "command"])).to.eql 0
+        expect(gpl.run(["", "", "-a", "command"])).to.eql 0
         process.title = title
