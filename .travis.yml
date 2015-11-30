@@ -7,7 +7,6 @@ node_js:
 
 before_script:
   - git clone https://github.com/vidr-group/code-guide.git ./code-guide
-  - rm coffeelint.json
   - cp ./code-guide/coffeelint.json ./coffeelint.json
 
 notifications:
