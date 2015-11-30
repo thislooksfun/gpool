@@ -66,7 +66,7 @@ module.exports = Main =
   write: process.stdout.write
   print: console.log
   
-  return: (args) ->
+  run: (args) ->
     process.title = "gpool"
     
     throw new Error("'args' variable improperly set to: #{args}") unless Array.isArray args
