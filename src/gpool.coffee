@@ -76,9 +76,7 @@ doClone = (args) ->
   
   dir = process.cwd()
   
-  rmdirSync "/tmp/manifest"
-  mkdir "/tmp"
-  ls "/"
+  rmdirSync "/tmp/manifest" if (fs.statSync "/tmp/manifest").isDirectory()
   
   res = runCmd "git clone #{argList[0]} /tmp/manifest"
   unless res.code is 0
