@@ -87,7 +87,7 @@ doClone = (args) ->
     return false
   
   try
-    return (fs.statSync "/tmp/manifest/gpl_manifest.json").isFile()
+    return false unless (fs.statSync "/tmp/manifest/gpl_manifest.json").isFile()
   catch err
     return false
   
