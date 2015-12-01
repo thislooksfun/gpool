@@ -6,6 +6,7 @@
     "install": "chmod +x ./scripts/setup.sh && ./scripts/setup.sh || echo \"Setup script couldn't be made executable!\"",
     "test": "./scripts/test.sh"
   },
+  "bin": "bin/gpl",
   "repository": {
     "type": "git",
     "url": "https://github.com/vidr-group/gpool.git"
