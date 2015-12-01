@@ -198,7 +198,7 @@ module.exports = Main =
   
   
   options:
-    verbose: false  # TODO set flags
+    verbose: true  # TODO set flags
   
   usage:
     printAll: ->
