@@ -35,7 +35,7 @@ describe "The clone command", ->
     @slow 10000
     
     title = process.title
-    expect(gpl.run(["", "", "clone", "git@github.com:vidr-group/gpool-test-manifest"])).to.eql 0
+    expect(gpl.run(["", "", "clone", "https://github.com/vidr-group/gpool-test-manifest"])).to.eql 0
     process.title = title
   
   it.skip "should clone into the given directory", ->
@@ -44,5 +44,5 @@ describe "The clone command", ->
     
     title = process.title
     expect(gpl.run(["", "", "clone",
-                    "git@github.com:vidr-group/gpool-test-manifest", "stuff"])).to.eql 0
+                    "https://github.com/vidr-group/gpool-test-manifest", "stuff"])).to.eql 0
     process.title = title
