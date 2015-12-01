@@ -76,14 +76,21 @@ doClone = (args) ->
   
   dir = process.cwd()
   
-  rmdirSync "/tmp/manifest" if (fs.statSync "/tmp/manifest").isDirectory()
+  try
+    rmdirSync "/tmp/manifest" if fs.statSync("/tmp/manifest").isDirectory()
+  catch err
+    #ignore
   
   res = runCmd "git clone #{argList[0]} /tmp/manifest"
   unless res.code is 0
     Main.print res.output
     return false
   
-  return false unless (fs.statSync "/tmp/manifest/gpl_manifest.json").isFile()
+  try
+    return (fs.statSync "/tmp/manifest/gpl_manifest.json").isFile()
+  catch err
+    return false
+  
   manifest = parseManifest "/tmp/manifest/gpl_manifest.json"
   
   path = ""
