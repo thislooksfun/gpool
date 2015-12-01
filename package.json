@@ -1,6 +1,6 @@
 {
   "name": "gpool",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A management tool for multiple git repositories",
   "scripts": {
     "install": "chmod +x ./scripts/setup.sh && ./scripts/setup.sh || echo \"Setup script couldn't be made executable!\"",
