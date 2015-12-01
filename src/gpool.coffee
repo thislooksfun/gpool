@@ -77,6 +77,7 @@ doClone = (args) ->
   dir = process.cwd()
   
   rmdirSync "/tmp/manifest"
+  mkdir "/tmp"
   
   res = runCmd "git clone #{argList[0]} /tmp/manifest"
   unless res.code is 0
