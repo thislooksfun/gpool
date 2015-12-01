@@ -128,8 +128,8 @@ doClone = (args) ->
     for err in errors
       Main.print ""
   
-  mkdir "#{path}/.git"
-  cp "/tmp/manifest/gpl_manifest.json", "#{path}/.git/gpl_manifest.json"
+  mkdir "#{path}/.gpl"
+  cp "/tmp/manifest/gpl_manifest.json", "#{path}/.gpl/gpl_manifest.json"
   
   return true
 
