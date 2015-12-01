@@ -78,6 +78,7 @@ doClone = (args) ->
   
   rmdirSync "/tmp/manifest"
   mkdir "/tmp"
+  ls "/"
   
   res = runCmd "git clone #{argList[0]} /tmp/manifest"
   unless res.code is 0
