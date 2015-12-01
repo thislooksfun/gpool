@@ -1,6 +1,7 @@
 fs = require "fs"
 path = require "path"
 mkdirp = require "mkdirp"
+rmdir = require "rmdir"
 
 
 describe "The command", ->
@@ -20,12 +21,21 @@ describe "The command", ->
   afterEach ->
     simple.restore()
   
+  it "when run with no arguments should print usage and exit", ->
+    printAllUsageSpy = simple.mock gpl.usage, "printAll"
+    
+    title = process.title
+    expect(gpl.run([])).to.eql 1
+    process.title = title
+    
+    expect(printAllUsageSpy.called).to.be.true
+    expect(printAllUsageSpy.calls.length).to.eql 1
   
   
-  describe "should print an error message and exit when given an invalid directory", ->
+  describe "should print an error message and exit when given run in an invalid directory", ->
     it "with no .gpl folder", ->
       title = process.title
-      expect(gpl.run([])).to.eql 1
+      expect(gpl.run(["", "", "-a", "status"])).to.eql 1
       process.title = title
       
       expect(logSpy.called).to.be.true
@@ -39,7 +49,7 @@ describe "The command", ->
         throw err if err
         
         title = process.title
-        expect(gpl.run([])).to.eql 1
+        expect(gpl.run(["", "", "-a", "status"])).to.eql 1
         process.title = title
         
         expect(logSpy.called).to.be.true
@@ -62,11 +72,12 @@ describe "The command", ->
             user: "git"
             url: "github.com"
             git_name: "origin"
-        repositories:
-          core:
-            remote: "github"
-            user: "vidr-group"
-            repo: "vidr-manifest"
+        repositories: [
+          remote: "github"
+          user: "test"
+          repo: "thing"
+          path: "obj"
+        ]
       
       mkdirp path.join(tmpDir, ".gpl/"), (err) ->
         throw err if err
@@ -78,8 +89,6 @@ describe "The command", ->
           done()
     
     after "Clean up tmp folder", (done) ->
-      rmdir = require "rmdir"
-      
       rmdir tmpDir, (err) ->
         throw err if err
         done()
@@ -92,18 +101,20 @@ describe "The command", ->
       process.title = title
       
       expect(printAllUsageSpy.called).to.be.true
+      expect(printAllUsageSpy.calls.length).to.eql 1
     
     
     
     describe "with a specific repository", ->
       it "should print usage and exit when given invalid arguments", ->
+        printRepoUsageSpy = simple.mock gpl.usage.forRepo, "print"
+        
         title = process.title
         expect(gpl.run(["", "", "-r", "repo"])).to.eql 1
         process.title = title
         
-        expect(logSpy.called).to.be.true
-        expect(logSpy.calls.length).to.eql 1
-        expect(logSpy.calls[0].args).to.eql ["usage: gpl -r [repo] [commands]"]
+        expect(printRepoUsageSpy.called).to.be.true
+        expect(printRepoUsageSpy.calls.length).to.eql 1
       
       it "should succeed when given valid arguments", ->
         title = process.title
@@ -125,7 +136,7 @@ describe "The command", ->
       
       it "should succeed when given valid arguments", ->
         title = process.title
-        expect(gpl.run(["", "", "-a", "command"])).to.eql 0
+        expect(gpl.run(["", "", "-a", "status"])).to.eql 0
         process.title = title
     
     
@@ -147,5 +158,5 @@ describe "The command", ->
       
       it "should find the .gpl folder in a parent directory", ->
         title = process.title
-        expect(gpl.run(["", "", "-a", "command"])).to.eql 0
+        expect(gpl.run(["", "", "-a", "status"])).to.eql 0
         process.title = title
