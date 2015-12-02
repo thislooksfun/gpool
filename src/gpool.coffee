@@ -81,7 +81,7 @@ doClone = (args) ->
   catch err
     #ignore
   
-  res = runCmd "git clone #{argList[0]} /tmp/manifest"
+  res = runCmd "git clone --depth 1 #{argList[0]} /tmp/manifest"
   unless res.code is 0
     Main.print res.output
     return false
